@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-        <h3>Context API</h3>
+        <h5>CONTEXT API</h5>
         <NavLinks user={user} logout={logout} />
     </nav>
   )
