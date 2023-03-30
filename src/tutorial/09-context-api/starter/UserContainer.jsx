@@ -1,25 +1,16 @@
-import { useState } from "react"
-const UserContainer = () => {
 
-    const [user, setUser] = useState({name : 'Bob'})
-
-    const handleClick = () =>{
-        setUser(null)
-    }
+const UserContainer = ({user, logout}) => {
   return (
-    <div>
+    <div className="user-container">
         {user ? (
-        <div>
-            Hello There, {user.name}
-            <button className="btn" onClick={handleClick}>
+        <>
+            <p>Hello There, {user?.name}</p> 
+            <button className="btn" onClick={logout}>
             Logout
             </button>
-        </div>
+        </>
         ) : (
-        <div>
-        <h4>Please Login</h4>
-        </div>
-         
+        <p>Please Login</p>
         )}
     </div>
   );

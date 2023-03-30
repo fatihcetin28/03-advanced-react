@@ -1,5 +1,5 @@
 import UserContainer from "./UserContainer"
-const NavLinks = () => {
+const NavLinks = ({user,logout}) => {
   return (
     <div className="nav-container">
         <ul className="nav-links">
@@ -7,7 +7,7 @@ const NavLinks = () => {
             <li><a href="http://www.bing.com" target="_blank" rel="noopener noreferrer">Bing</a></li>
         </ul>
         <div>
-            <UserContainer />
+            <UserContainer user={user} logout={logout} />
         </div>
     </div>
 
