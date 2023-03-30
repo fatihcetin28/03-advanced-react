@@ -1,7 +1,7 @@
 //FormData yı bitirdik
 // Useref hooks da kaldık 9:25
-import Final from "./tutorial/09-context-api/starter/context/Navbar"
-import Starter from "./tutorial/09-context-api/starter/context/Navbar"
+import Final from "./tutorial/10-useReducer/final/01-useReducer"
+import Starter from "./tutorial/10-useReducer/starter/01-useReducer"
 
 
 function App() {
