@@ -1,53 +1,46 @@
-import React from 'react';
+import { useState, useReducer } from 'react';
 import { data } from '../../../data';
-const ReducerBasics = () => {
-  const [people, setPeople] = React.useState(data);
-  const [isEqualData, setIsEqualData] = React.useState(true)
-  const [isClear, setIsClear] = React.useState(false)
-  //usestate kullanarak yaptık toggle işlemi
 
+const defaultState = {
+  people:data,
+  isLoading:false
+}
+
+const reducer = (state,action) =>{
+  if (action.type==='CLEAR_LIST') {
+    return {...state, people:[]}
+  } else if (action.type ==='REMOVE_ITEM') {
+    let newPeople = state.people.filter((person) => person.id !== action.id);
+    console.log(action);
+    return {...state, people:newPeople}
+  } else if (action.type === 'RESET_ITEMS') {
+    return {...state, people:data}
+  }
+}
+
+const ReducerBasics = () => {
+
+  // a default state and we need provide a reducer
+  // reducer : a function that is going to manipulate the state
+
+  const [state,dispatch] = useReducer(reducer, defaultState)
 
   const removeItem = (id) => {
-    let newPeople = people.filter((person) => person.id !== id);
-    setPeople(newPeople);
-    setIsEqualData(false)
-    if (newPeople.length==0) {
-      setIsClear(true)
-    }
+    dispatch({type:'REMOVE_ITEM', id:id})
+    
   };
 
   const clearItems = ()=>{
-    setPeople([])
-    setIsEqualData(false)
-    setIsClear(true)
+    dispatch({type:'CLEAR_LIST'})
   }
   const resetItems = () =>{
-    setPeople(data)
-    setIsEqualData(true)
-    setIsClear(false)
+    dispatch({type:'RESET_ITEMS'})
   }
 
-  const isPeopleNull = () =>{
-    if (people.length==0) {
-      return true
-    } else {
-      return false
-    }
-  }
-  const isPeopleEqualData = () =>{
-    if (people.length!==data.length) {
-      return false
-    }else {
-      return true
-    };
-  }
-  isPeopleEqualData()
-  isPeopleNull()
-  //bir de bu iki fonku kullanarak yaptık toggle button işlemi
-  console.log(isPeopleNull());
+  console.log(state);
   return (
     <div>
-      {people.map((person) => {
+      {state.people.map((person) => {
         const { id, name } = person;
         return (
           <div key={id} className='item'>
@@ -56,17 +49,16 @@ const ReducerBasics = () => {
           </div>
         );
       })}
-      {isPeopleNull()?('No item'):(
+      {state.people.length<1?('No item'):(
               <button
               className='btn'
               style={{ marginTop: '2rem' }}
-              onClick={clearItems}
-            >
+              onClick={clearItems}>
               clear items
             </button>
       )}
 
-      {isPeopleEqualData()? (
+      {state.people.length==4? (
           <p>Kullanıcılar Yüklü</p>
       ) :(
         <>
